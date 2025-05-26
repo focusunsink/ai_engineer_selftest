@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>程序员技术栈自我评估</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #4a90e2;
+    }
+    .module {
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .skill {
+      margin-bottom: 10px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .btn-group button {
+      margin: 2px;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #fff;
+    }
+    .btn-group button.selected {
+      background-color: #4a90e2;
+      color: #fff;
+    }
+    button.generate-report {
+      width: 100%;
+      padding: 10px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button.generate-report:hover {
+      background-color: #357ab7;
+    }
+    .report {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #eef6ff;
+      border-radius: 4px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>程序员技术栈自我评估</h1>
+
+    <div class="module">
+      <h2>操作系统</h2>
+      <div class="skill" data-skill="Linux">
+        <label>Linux</label>
+        <div class="btn-group">
+          <button data-value="0">0</button>
+          <button data-value="1">1</button>
+          <button data-value="2">2</button>
+          <button data-value="3">3</button>
+          <button data-value="4">4</button>
+        </div>
+      </div>
+      <div class="skill" data-skill="Windows">
+        <label>Windows</label>
+        <div class="btn-group">
+          <button data-value="0">0</button>
+          <button data-value="1">1</button>
+          <button data-value="2">2</button>
+          <button data-value="3">3</button>
+          <button data-value="4">4</button>
+        </div>
+      </div>
+      <div class="skill" data-skill="MacOS">
+        <label>MacOS</label>
+        <div class="btn-group">
+          <button data-value="0">0</button>
+          <button data-value="1">1</button>
+          <button data-value="2">2</button>
+          <button data-value="3">3</button>
+          <button data-value="4">4</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="module">
+      <h2>编程语言能力</h2>
+      <div class="skill" data-skill="ARM NEON/SVE">
+        <label>ARM NEON/SVE</label>
+        <div class="btn-group">
+          <button data-value="0">0</button>
+          <button data-value="1">1</button>
+          <button data-value="2">2</button>
+          <button data-value="3">3</button>
+          <button data-value="4">4</button>
+        </div>
+      </div>
+      <div class="skill" data-skill="SSE/AVX">
+        <label>SSE/AVX</label>
+        <div class="btn-group">
+          <button data-value="0">0</button>
+          <button data-value="1">1</button>
+          <button data-value="2">2</button>
+          <button data-value="3">3</button>
+          <button data-value="4">4</button>
+        </div>
+      </div>
+      <div class="skill" data-skill="C">
+        <label>C</label>
+        <div class="btn-group">
+          <button data-value="0">0</button>
+          <button data-value="1">1</button>
+          <button data-value="2">2</button>
+          <button data-value="3">3</button>
+          <button data-value="4">4</button>
+        </div>
+      </div>
+      <div class="skill" data-skill="C++">
+        <label>C++</label>
+        <div class="btn-group">
+          <button data-value="0">0</button>
+          <button data-value="1">1</button>
+          <button data-value="2">2</button>
+          <button data-value="3">3</button>
+          <button data-value="4">4</button>
+        </div>
+      </div>
+      <div class="skill" data-skill="Python">
+        <label>Python</label>
+        <div class="btn-group">
+          <button data-value="0">0</button>
+          <button data-value="1">1</button>
+          <button data-value="2">2</button>
+          <button data-value="3">3</button>
+          <button data-value="4">4</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="generate-report" onclick="generateReport()">生成评估报告</button>
+
+    <div class="report" id="report"></div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.btn-group button').forEach(button => {
+      button.addEventListener('click', function() {
+        this.parentNode.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+
+    function generateReport() {
+      const skills = document.querySelectorAll('.skill');
+      let report = '程序员技术栈自我评估报告:\n\n';
+      skills.forEach(skill => {
+        const skillName = skill.getAttribute('data-skill');
+        const selectedButton = skill.querySelector('.selected');
+        const value = selectedButton ? selectedButton.getAttribute('data-value') : '未选择';
+        report += `${skillName}: ${value}\n`;
+      });
+      document.getElementById('report').textContent = report;
+    }
+  </script>
+</body>
+</html>
